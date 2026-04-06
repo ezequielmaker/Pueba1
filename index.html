@@ -28,17 +28,24 @@
             font-family: 'Syncopate', sans-serif;
             text-transform: uppercase;
             position: relative;
+            display: inline-block;
         }
 
         .rough-edge {
-            clip-path: polygon(0% 0%, 100% 2%, 98% 100%, 3% 97%);
+            clip-path: polygon(0% 0%, 100% 1%, 99% 100%, 2% 98%);
         }
 
-        /* Estilo para el input de búsqueda */
+        .custom-scroll::-webkit-scrollbar { display: none; }
+
         .search-input::placeholder {
-            color: #444;
+            color: #333;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
+        }
+
+        .product-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -46,73 +53,130 @@
 
     <div class="grain"></div>
 
-    <section class="h-[70vh] flex flex-col justify-center items-center relative">
+    <section class="h-screen flex flex-col justify-center items-center relative border-b border-zinc-900">
         <h1 class="glitch text-[15vw] leading-none font-black tracking-tighter md:text-[12vw]">RVLT</h1>
-        <p class="text-red-600 font-mono tracking-[0.5em] text-sm mt-4 italic uppercase text-center">Not for everyone / Search the void</p>
+        <p class="text-red-600 font-mono tracking-[0.5em] text-sm mt-4 italic uppercase">NOT FOR EVERYONE</p>
+        
+        <div class="absolute bottom-10 left-10 text-[10px] tracking-widest uppercase opacity-40 font-mono">
+            System_Update: v2.0 <br> [2026©]
+        </div>
     </section>
 
-    <section class="px-6 md:px-20 mb-20">
-        <div class="max-w-4xl mx-auto border border-zinc-800 p-4 md:p-8 bg-[#0d0d0d] rough-edge">
-            <div class="flex flex-col md:flex-row gap-4">
-                <input type="text" id="searchInput" placeholder="BUSCAR PRENDA..." 
-                    class="search-input flex-grow bg-transparent border-b-2 border-zinc-700 p-2 outline-none focus:border-red-600 transition-colors font-mono text-xl">
-                
-                <div class="flex gap-2 flex-wrap text-[10px] font-bold uppercase tracking-widest">
-                    <button onclick="filterCategory('all')" class="border border-zinc-700 px-4 py-2 hover:bg-white hover:text-black transition">ALL</button>
-                    <button onclick="filterCategory('hoodie')" class="border border-zinc-700 px-4 py-2 hover:bg-white hover:text-black transition">HOODIES</button>
-                    <button onclick="filterCategory('pants')" class="border border-zinc-700 px-4 py-2 hover:bg-white hover:text-black transition">PANTS</button>
-                    <button onclick="filterCategory('tees')" class="border border-zinc-700 px-4 py-2 hover:bg-white hover:text-black transition">TEES</button>
-                </div>
+    <section class="pt-20 px-6 md:px-20">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 items-end border-b border-zinc-900 pb-12">
+            <div class="w-full md:w-1/2">
+                <label class="block font-mono text-[10px] uppercase tracking-widest mb-2 opacity-50 text-red-600">// Search_The_Void</label>
+                <input type="text" id="searchInput" placeholder="Escribí aquí..." 
+                    class="search-input w-full bg-transparent border-b border-zinc-800 py-3 outline-none focus:border-red-600 transition-colors font-mono text-xl uppercase tracking-tighter">
+            </div>
+            <div class="flex gap-2 flex-wrap">
+                <button onclick="filterCategory('all')" class="text-[9px] font-black border border-zinc-800 px-5 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest">All</button>
+                <button onclick="filterCategory('hoodie')" class="text-[9px] font-black border border-zinc-800 px-5 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest">Hoodies</button>
+                <button onclick="filterCategory('pants')" class="text-[9px] font-black border border-zinc-800 px-5 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest">Pants</button>
+                <button onclick="filterCategory('tees')" class="text-[9px] font-black border border-zinc-800 px-5 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest">Tees</button>
             </div>
         </div>
     </section>
 
     <section class="p-6 md:p-20" id="productGrid">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-20 gap-x-10">
             
-            <div class="product-item md:col-span-7" data-name="oversized noose hoodie" data-category="hoodie">
-                <div class="rough-edge bg-zinc-900 aspect-[4/5] overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+            <div class="product-item md:col-span-7 product-card" data-name="hoodie noose oversized" data-category="hoodie">
+                <div class="rough-edge bg-zinc-900 aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
                 </div>
-                <div class="mt-4 flex justify-between uppercase">
-                    <span class="text-2xl font-black italic">Oversized "Noose" Hoodie</span>
-                    <span class="font-mono text-red-600">$120.00</span>
-                </div>
-            </div>
-
-            <div class="product-item md:col-span-5 md:mt-32" data-name="cargo hybrid pants" data-category="pants">
-                <div class="rough-edge bg-zinc-900 aspect-square overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
-                </div>
-                <div class="mt-4 flex justify-between uppercase">
-                    <span class="text-xl font-black italic">Cargo Hybrid Pants</span>
-                    <span class="font-mono text-red-600">$95.00</span>
+                <div class="mt-4 flex justify-between items-start">
+                    <span class="text-2xl font-black uppercase italic tracking-tighter">Oversized "Noose" Hoodie</span>
+                    <span class="font-mono text-red-600">$120</span>
                 </div>
             </div>
 
-            <div class="product-item md:col-span-6" data-name="graphic tee error" data-category="tees">
-                <div class="rough-edge bg-zinc-900 aspect-video overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+            <div class="product-item md:col-span-5 md:mt-40 product-card" data-name="cargo hybrid pants black" data-category="pants">
+                <div class="rough-edge bg-zinc-900 aspect-square overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
                 </div>
-                <div class="mt-4 flex justify-between uppercase">
-                    <span class="text-xl font-black italic text-zinc-500">Graphic Tee "Error"</span>
-                    <span class="font-mono text-red-600">$45.00</span>
+                <div class="mt-4 flex justify-between items-start">
+                    <span class="text-xl font-black uppercase italic tracking-tighter">Cargo Hybrid V2</span>
+                    <span class="font-mono text-red-600">$95</span>
+                </div>
+            </div>
+
+            <div class="product-item md:col-span-4 product-card" data-name="tee graphic error glitch" data-category="tees">
+                <div class="rough-edge bg-zinc-900 aspect-[3/4] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
+                </div>
+                <div class="mt-4">
+                    <p class="text-lg font-black uppercase italic">Graphic Tee "ERROR"</p>
+                    <p class="font-mono text-red-600 text-sm">$45</p>
+                </div>
+            </div>
+
+            <div class="product-item md:col-span-8 product-card" data-name="hoodie boxy silhouette mask" data-category="hoodie">
+                <div class="rough-edge bg-zinc-900 aspect-video overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=1200" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-2xl font-black uppercase italic">Boxy Silhouette Hoodie</span>
+                    <span class="font-mono text-red-600 text-xl">$140</span>
+                </div>
+            </div>
+
+            <div class="product-item md:col-span-6 product-card" data-name="pants wide leg concrete" data-category="pants">
+                <div class="rough-edge bg-zinc-900 aspect-square overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
+                </div>
+                <div class="mt-4">
+                    <p class="text-xl font-black uppercase italic">Wide Leg "Concrete"</p>
+                    <p class="font-mono text-red-600">$110</p>
+                </div>
+            </div>
+
+            <div class="product-item md:col-span-6 md:mt-20 product-card" data-name="tee heavy weight raw" data-category="tees">
+                <div class="rough-edge bg-zinc-900 aspect-square overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=800" 
+                         class="w-full h-full object-cover grayscale transition-all duration-700">
+                </div>
+                <div class="mt-4">
+                    <p class="text-xl font-black uppercase italic">Heavy Weight "Raw" Tee</p>
+                    <p class="font-mono text-red-600">$55</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="p-10 border-t border-zinc-900 mt-20 flex justify-between items-center opacity-30 font-mono text-[10px]">
-        <span>RVLT_SYSTEM_v1.0</span>
-        <span>2026© REVOLT</span>
+    <section class="py-40 px-6 bg-zinc-100 text-black">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-6xl md:text-8xl font-black uppercase leading-none mb-10 tracking-tighter">
+                WE REJECT <br> THE NORM.
+            </h3>
+            <p class="text-xl md:text-2xl font-medium leading-tight max-w-2xl border-l-4 border-black pl-6">
+                RVLT es una respuesta visceral al orden estético. No diseñamos ropa, construimos armaduras para el caos urbano. Cada costura es una declaración de guerra.
+            </p>
+        </div>
+    </section>
+
+    <footer class="p-10 border-t border-zinc-900 bg-[#050505] flex flex-col md:flex-row justify-between items-center gap-10">
+        <div class="text-center md:text-left">
+            <h4 class="text-2xl font-black mb-4 uppercase italic">JOIN_THE_RESISTANCE</h4>
+            <div class="flex">
+                <input type="email" placeholder="Email" class="bg-transparent border border-zinc-800 p-2 outline-none focus:border-red-600 w-48 text-xs font-mono">
+                <button class="bg-red-600 px-4 py-2 text-xs font-bold text-black uppercase">Sub</button>
+            </div>
+        </div>
+        <div class="flex gap-8 font-mono text-[10px] uppercase tracking-widest opacity-40">
+            <a href="#" class="hover:text-red-600 transition-colors">Instagram</a>
+            <a href="#" class="hover:text-red-600 transition-colors">TikTok</a>
+            <a href="#" class="hover:text-red-600 transition-colors">Terms</a>
+        </div>
     </footer>
 
     <script>
-        // LÓGICA DE BÚSQUEDA
         const searchInput = document.getElementById('searchInput');
         const products = document.querySelectorAll('.product-item');
 
@@ -120,23 +184,14 @@
             const value = e.target.value.toLowerCase();
             products.forEach(item => {
                 const name = item.getAttribute('data-name');
-                if (name.includes(value)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
+                item.style.display = name.includes(value) ? "block" : "none";
             });
         });
 
-        // LÓGICA DE CATEGORÍAS
         function filterCategory(cat) {
             products.forEach(item => {
                 const category = item.getAttribute('data-category');
-                if (cat === 'all' || category === cat) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
+                item.style.display = (cat === 'all' || category === cat) ? "block" : "none";
             });
         }
     </script>
